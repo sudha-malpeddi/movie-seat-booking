@@ -15,8 +15,8 @@ No database-level locks are held, reducing potential for deadlocks.
 Best for read-heavy systems or environments with low contention.
 
 **Example**: Booking systems where most attempts to book a resource are unique.
-**
-**2. Pessimistic Locking****
+
+****2. Pessimistic Locking****
 
 **Concept**: Assumes conflicts are likely. Locks the resource as soon as it is accessed, preventing other transactions from making changes until the current transaction completes.
 
