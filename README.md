@@ -3,6 +3,7 @@ A Spring Boot application for concurrent movie seat booking using optimistic and
 
 **1. Optimistic Locking**
 **Concept**: Assumes conflicts are rare. Rather than locking the resource preemptively, it allows multiple transactions to proceed. At the time of updating the resource, it checks if any other transaction has modified it in the meantime.
+
 **Implementation**: Uses a version or timestamp column to detect conflicts. If a conflict is detected (i.e., the version/timestamp has changed), the transaction is retried or aborted.
 **Advantages**:
 Better performance in scenarios with low contention.
