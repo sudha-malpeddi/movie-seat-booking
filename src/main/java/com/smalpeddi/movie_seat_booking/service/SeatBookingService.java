@@ -34,4 +34,19 @@ public class SeatBookingService {
         }
     }
 
+    public void bookSeatPessimistic(Long seatId) {
+        // Lock the seat for writing
+        Seat seat = seatRepository.findById(seatId).orElseThrow(() -> new RuntimeException("Seat not found"));
+
+        System.out.println(Thread.currentThread().getName() + " used pessimistic locking to fetch the seat with version " + seat.getVersion());
+
+        // Check if seat is already booked
+        if (seat.getBooked()) {
+            throw new RuntimeException("Seat is already booked");
+        }
+
+        // Book the seat
+        seat.setBooked(true);
+        seatRepository.save(seat);
+    }
 }

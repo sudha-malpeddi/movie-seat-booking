@@ -20,4 +20,10 @@ public class SeatBookingController {
         seatBookingService.bookSeatOptimistic(id);
         return "Seat booked successfully using optimistic locking!";
     }
+
+    @PostMapping("/{id}/book/pessimistic")
+    public String bookSeatPessimistic(@PathVariable Long id) {
+        seatBookingService.bookSeatPessimistic(id);
+        return "Seat booked successfully using pessimistic locking!";
+    }
 }

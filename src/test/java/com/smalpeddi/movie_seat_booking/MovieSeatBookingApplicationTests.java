@@ -58,4 +58,36 @@ class MovieSeatBookingApplicationTests {
 		assert bookedSeat.getBooked();
 	}
 
+	@Test
+	public void testPessimisticLocking() throws InterruptedException {
+		// Get seat to test
+		Long seatId = 1L;
+
+		// Simulate two concurrent threads booking the same seat using pessimistic locking
+		Thread user1 = new Thread(() -> {
+			try {
+				seatBookingService.bookSeatPessimistic(seatId);
+			} catch (Exception e) {
+				System.out.println(Thread.currentThread().getName()+" failed to book with pessimistic locking: " + e.getMessage());
+			}
+		});
+
+		Thread user2 = new Thread(() -> {
+			try {
+				seatBookingService.bookSeatPessimistic(seatId);
+			} catch (Exception e) {
+				System.out.println(Thread.currentThread().getName()+" failed to book with pessimistic locking: " + e.getMessage());
+			}
+		});
+
+		user1.start();
+		user2.start();
+
+		user1.join();
+		user2.join();
+
+		// Assert seat is booked
+		Seat bookedSeat = seatRepository.findById(seatId).orElseThrow();
+		assert bookedSeat.getBooked();
+	}
 }
