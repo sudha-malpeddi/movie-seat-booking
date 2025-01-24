@@ -1,6 +1,7 @@
 # movie-seat-booking
 A Spring Boot application for concurrent movie seat booking using optimistic and pessimistic locking.
 
+
 ****1. Optimistic Locking****
 
 **Concept**: Assumes conflicts are rare. Rather than locking the resource preemptively, it allows multiple transactions to proceed. At the time of updating the resource, it checks if any other transaction has modified it in the meantime.
@@ -15,6 +16,8 @@ No database-level locks are held, reducing potential for deadlocks.
 Best for read-heavy systems or environments with low contention.
 
 **Example**: Booking systems where most attempts to book a resource are unique.
+
+
 
 ****2. Pessimistic Locking****
 
